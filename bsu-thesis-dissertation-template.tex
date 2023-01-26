@@ -2,6 +2,7 @@
 %\documentclass{bsu-cs}  % default is thesis
 %\documentclass[project]{bsu-cs}  % for project reports
 \documentclass[dissertation]{bsu-cs}  % for dissertation
+% INFO: remove this line to use the default margins
 \usepackage[inner=1.5in,outer=1in,letterpaper,twoside]{geometry}
 
 % "bsu-cs" is our "in-house" class file for Boise State dissertations, theses
@@ -136,11 +137,12 @@
 
 % Generate intra-document links and also allows url and href commands for
 % to generate embedded links in the document.
-% \usepackage{hyperref}
-% \hypersetup{
-% 	colorlinks=true,
-% 	allcolors=blue,
-% }
+% WARNING: This causes warnings during build due to the cls file and redefinitions, comment out to remove warnings
+\usepackage{hyperref}
+\hypersetup{
+	colorlinks=true,
+	allcolors=blue,
+}
 
 
 
@@ -427,6 +429,21 @@ variable accordingly.
 The first or second way is recommended, because they involve making a local copy of the style
 file.  This assures your document format will not be affected affected by subsequent updates
 to \texttt{bsu-cs.cls} (but gives you the option to copy the updated file if you want).
+
+\pagebreak
+\section{Naming Conventions}
+
+Figures can be kept in the figures directory, and referenced dynamically using:
+
+\begin{verbatim}
+  \label{fig:figure_name}
+\end{verbatim}
+
+where this label comes from the \verb|\figure{}| command which must be placed after the \verb|\caption{}| command.
+
+A common naming convention for figures is to use the prefix ``fig'' followed by a number, e.g. \verb|\label{fig:1}|.  This allows you to easily reference figures in the text, e.g. Figure~\ref{fig:fuzzyImage}.
+
+Similarly, sections and tables can be referenced this way as well and will often use a prefix such as ``table'' or ``section'' when you would like to reference them in the text.
 
 \section{Get ready for Wabi-sabi}\label{sec:getReady}
 
