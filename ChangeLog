@@ -1,3 +1,13 @@
+Apr 2026 (Dave)
+---------------
+
+-Edited cls file so that Approval page formats title correctly (no hyphenations, correct justification)
+-Edited cls file so that Appendix chapter titles have their own pages; content starts on new page
+-Changed default back to two-sided dissertation in bsu-thesis-dissertation-template.tex
+-Made table and figure captions bold by default in bsu-thesis-dissertation-template.tex and bsu-proposal.tex
+-Added comments about natbib usage for references and helpful table formatting packages in bsu-thesis-dissertation-template.tex and bsu-proposal.tex
+-Updated README
+
 
 Feb 2022 (Amit, Graham)
 ----------------------
