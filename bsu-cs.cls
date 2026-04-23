@@ -195,7 +195,7 @@
 \DeclareOption{final}{\setlength\overfullrule{0pt}}
 
 %% These options control the position of displayed math equations and
-%% their numbering.  I'm going to just comment them out for now.
+%% their numbering. I'm going to just comment them out for now.
 %%\DeclareOption{leqno}{\input{leqno.clo}}
 %%\DeclareOption{fleqn}{\input{fleqn.clo}}
 
@@ -245,7 +245,6 @@
 %\DeclareOption{flushtop}{%
 %  \@flushtoptrue%
 %}
-
 
 %% The "Amit" option provides some particular formatting specifications,
 %% e.g., "Chapter" instead of "CHAPTER", that Amit prefers.
@@ -510,21 +509,50 @@
                     \@makechapterhead{#2}%
                     \@afterheading
                     }
+%! Appendix format required by graduate school:
+%!   Line 1: "APPENDIX A" (normal chapter heading style)
+%!   Line 2: appendix title underneath (centered, bold)
+%!   Next page: appendix body text starts
 \def\@makechapterhead#1{%
-  %! This I did change a bit, to get 2 inch margins
-  %! also I added macros for chapter heading styles
   {\parindent \z@ \raggedright \normalfont
     \ifnum \c@secnumdepth >\m@ne
       \centering
-        %! This is where \chapter creates the chapter name heading
-      \@chapterHeadStrut\@chapterHeadingStyle \@chapapp\space \thechapter
-      \par\nobreak
+      \if@appendix
+        \@chapterHeadStrut\@chapterHeadingStyle \@chapapp\space \thechapter
+        \par\nobreak
+        \vskip 20\p@  % match gap
+        {\large\bfseries #1}\par\nobreak
+        \vskip 40\p@
+        \clearpage  % chapter body begins on the next page
+      \else
+        %! This I did change a bit, to get 2 inch margins
+        %! also I added macros for chapter heading styles
+        %! Normal (non-appendix) chapter heading
+        \@chapterHeadStrut\@chapterHeadingStyle \@chapapp\space \thechapter
+        \par\nobreak
         \vskip 20\p@
+        \interlinepenalty\@M
+        \@chapterNameStyle \@chapterNameCase{#1}\par\nobreak
+        \vskip 40\p@
+      \fi
     \fi
-    \interlinepenalty\@M
-    \@chapterNameStyle \@chapterNameCase{#1}\par\nobreak
-    \vskip 40\p@
   }}
+% \def\@makechapterhead#1{%
+%   %! This I did change a bit, to get 2 inch margins
+%   %! also I added macros for chapter heading styles
+%   {\parindent \z@ \raggedright \normalfont
+%     \ifnum \c@secnumdepth >\m@ne
+%       \centering
+%         %! This is where \chapter creates the chapter name heading
+%       \@chapterHeadStrut\@chapterHeadingStyle \@chapapp\space \thechapter
+%       \par\nobreak
+%         \vskip 20\p@
+%     \fi
+%     \interlinepenalty\@M
+%     \@chapterNameStyle \@chapterNameCase{#1}\par\nobreak
+%     \vskip 40\p@
+%   }}
+  
 \def\@schapter#1{\if@twocolumn
                    \@topnewpage[\@makeschapterhead{#1}]%
                  \else
@@ -1379,13 +1407,25 @@
   %% (although this page is not numbered)
   \thispagestyle{empty}
   \begin{center}
-   of the  {\@masterstype} submitted by
+   of the {\@masterstype} submitted by
  	\vspace{12pt}\\
    {\@author}
  	\vspace{12pt}
   \end{center}
   \singlespacing
-  \noindent {\@Masterstype} Title: {\@title}\\[12pt]
+%! Title: prevent hyphenation, keep additional lines of title aligned 
+%% with each other, all to the right of “Dissertation Title:”
+  \noindent
+  \makebox[\textwidth][l]{%
+    \parbox[t]{0.25\textwidth}{\@Masterstype\ Title:}%
+    \hspace{0.02\textwidth}%
+    \parbox[t]{0.73\textwidth}{%
+      \raggedright
+      \hyphenpenalty=10000
+      \exhyphenpenalty=10000
+      \@title
+    }%
+  }\\[12pt]
   \noindent Date of Final Oral Examination: {\@defenseDate}\\[12pt]
   \noindent The following individuals read and discussed the {\@masterstype}
   submitted by student {\@author},  and they evaluated the presentation
@@ -1724,5 +1764,6 @@
 \normalspacing
 \pagestyle{plain}     %% page number centered in the footer
 \pagenumbering{roman} %% use miniscule Roman numerals for page numbering
+
 
 \endinput
