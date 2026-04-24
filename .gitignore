@@ -4,6 +4,7 @@ bsu-thesis-dissertation-template.pdf
 *.fdb_latexmk
 *.log
 *.aux
+*.synctex.gz
 *.dvi
 *.toc
 *.aux

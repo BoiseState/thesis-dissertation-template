@@ -1,13 +1,18 @@
 % Work in progress!
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% "bsu-cs" is our "in-house" class file for Boise State dissertations, theses, 
+% and project reports.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % The \documentclass command is the first command in a LaTeX file.
 %\documentclass{bsu-cs}  % default is thesis
 %\documentclass[project]{bsu-cs}  % for project reports
 %\documentclass[dissertation]{bsu-cs}  % for dissertation
 \documentclass[dissertation, proposal]{bsu-cs}  % for dissertation
 
-% "bsu-cs" is our "in-house" class file for Boise State dissertations, theses, 
-% and project reports.
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -136,8 +141,13 @@
 %\usepackage{mathptmx}
 %\usepackage[scaled=0.92]{helvet}
 
-% The 'citesort' package puts mutliple citation numbers in order
+% The 'citesort' package puts multiple citation numbers in order
 %\usepackage{citesort}
+
+% Or, the natbib package allows for \citet and using a .bib file for reference handling.
+% \usepackage[sort&compress,numbers,square]{natbib}
+% \bibliographystyle{plainnat}
+% \usepackage[nottoc,notbib]{tocbibind} % adds References/Bibliography to table of contents
 
 
 % Generate intra-document links and also allows url and href commands for
@@ -149,12 +159,31 @@
 	allcolors=blue,
 }
 
+%% Make table and figure captions bold; note this might mess up 
+% longtable tables (if so, try \clearpage right before a longtable)
+\usepackage{caption}
+\captionsetup{
+    labelfont=bf,
+    textfont=bf
+}
+
+% Additional packages for table and figure formatting.
+% \usepackage{makecell}
+% \usepackage{multirow}
+% \usepackage{enumerate}
+% \usepackage{booktabs}
+% \usepackage{longtable}
+% \usepackage{placeins} % for \FloatBarrier, useful for placing tables and figures within text sections
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Local commands
 
 % Define your macros (new commands) here.
+
+% Example: for colored edits starting with 'ME:' and 'ADVISOR:'
+\newcommand{\myedit}[1]{\textcolor{red}{ME: #1}} % now, use '\myedit{...}'
+\newcommand{\advisoredit}[1]{\textcolor{purple}{ADVISOR: #1}}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -763,12 +792,13 @@ research.
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-
-
 % There are different bibliography styles; 'plain' is used for theses.
-\bibliographystyle{plain}
+\bibliographystyle{plain} % or plainnat if using natbib
 
-% One way of constructing the bibliography is to list the entries explicitly
+% If using natbib package
+% \bibliography{NAME_OF_BIB_FILE}
+
+% Another way of constructing the bibliography is to list the entries explicitly
 % in a 'thebibliography' environment, which is done here.
 %
 % If you prefer, you can use the 'bibtex' program, which formats the 
